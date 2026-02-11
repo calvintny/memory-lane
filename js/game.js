@@ -163,6 +163,106 @@ class Game {
                 this.ui.hideTitle();
             }
         });
+
+        // Setup mobile touch controls
+        this.setupTouchInput();
+    }
+
+    setupTouchInput() {
+        const btnLeft = document.getElementById('btnLeft');
+        const btnRight = document.getElementById('btnRight');
+        const btnJump = document.getElementById('btnJump');
+        const btnInteract = document.getElementById('btnInteract');
+        const btnSprint = document.getElementById('btnSprint');
+
+        if (!btnLeft) return; // Controls not in DOM
+
+        const preventAndDo = (el, keyName, isToggle = false) => {
+            el.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+
+                // Start game on any button press
+                if (!this.gameStarted && this.ui.isTitleVisible()) {
+                    this.gameStarted = true;
+                    this.ui.hideTitle();
+                    return;
+                }
+
+                if (this.isTransitioning) return;
+
+                if (isToggle) {
+                    this.keys[keyName] = !this.keys[keyName];
+                    el.classList.toggle('pressed', this.keys[keyName]);
+                } else {
+                    this.keys[keyName] = true;
+                    el.classList.add('pressed');
+                }
+            }, { passive: false });
+
+            if (!isToggle) {
+                el.addEventListener('touchend', (e) => {
+                    e.preventDefault();
+                    this.keys[keyName] = false;
+                    el.classList.remove('pressed');
+                }, { passive: false });
+
+                el.addEventListener('touchcancel', (e) => {
+                    this.keys[keyName] = false;
+                    el.classList.remove('pressed');
+                });
+            }
+        };
+
+        // D-pad buttons: hold to move
+        preventAndDo(btnLeft, 'left');
+        preventAndDo(btnRight, 'right');
+
+        // Jump: press to jump
+        preventAndDo(btnJump, 'jump');
+
+        // Sprint: toggle on/off
+        preventAndDo(btnSprint, 'sprint', true);
+
+        // Interact: special — triggers handleInteract
+        btnInteract.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+
+            // Start game on any button press
+            if (!this.gameStarted && this.ui.isTitleVisible()) {
+                this.gameStarted = true;
+                this.ui.hideTitle();
+                return;
+            }
+
+            if (this.isTransitioning) return;
+
+            // Close modals on mobile via interact button
+            if (this.ui.isValentineModalOpen()) {
+                this.ui.closeValentineModal();
+                return;
+            }
+            if (this.ui.isVideoModalOpen()) {
+                this.ui.closeVideoModal();
+                return;
+            }
+
+            if (!this.keys.interact) {
+                this.keys.interact = true;
+                btnInteract.classList.add('pressed');
+                this.handleInteract();
+            }
+        }, { passive: false });
+
+        btnInteract.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            this.keys.interact = false;
+            btnInteract.classList.remove('pressed');
+        }, { passive: false });
+
+        btnInteract.addEventListener('touchcancel', () => {
+            this.keys.interact = false;
+            btnInteract.classList.remove('pressed');
+        });
     }
 
     handleInteract() {

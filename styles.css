@@ -843,3 +843,124 @@ body {
         padding: 1.5rem 2rem;
     }
 }
+
+/* ===== Mobile Touch Controls ===== */
+
+/* Hidden by default */
+.mobile-controls {
+    display: none;
+}
+
+/* Only show on touch devices (no hover capability) */
+@media (hover: none) and (pointer: coarse) {
+    .controls-hint {
+        display: none;
+    }
+
+    .mobile-controls {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 1rem 1.2rem 1.2rem;
+        z-index: 25;
+        pointer-events: none;
+    }
+
+    .mobile-dpad,
+    .mobile-actions {
+        pointer-events: auto;
+    }
+
+    /* D-pad (left side) */
+    .mobile-dpad {
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+    }
+
+    /* Action buttons (right side) */
+    .mobile-actions {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.4rem;
+    }
+
+    .action-row {
+        display: flex;
+        gap: 0.5rem;
+    }
+
+    /* Base button style */
+    .mobile-btn {
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        border: 2px solid rgba(245, 230, 211, 0.35);
+        background: rgba(30, 25, 20, 0.55);
+        color: rgba(245, 230, 211, 0.8);
+        font-size: 1.2rem;
+        font-family: 'Quicksand', sans-serif;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+        user-select: none;
+        -webkit-user-select: none;
+        transition: background 0.1s ease, border-color 0.1s ease, transform 0.1s ease;
+    }
+
+    .mobile-btn:active,
+    .mobile-btn.pressed {
+        background: rgba(245, 230, 211, 0.3);
+        border-color: rgba(245, 230, 211, 0.6);
+        transform: scale(0.92);
+    }
+
+    /* D-pad buttons slightly larger */
+    .dpad-btn {
+        width: 56px;
+        height: 56px;
+        font-size: 1.3rem;
+    }
+
+    /* Interact button - warm accent */
+    .interact-btn {
+        background: rgba(201, 64, 80, 0.35);
+        border-color: rgba(232, 90, 107, 0.5);
+        font-size: 1.1rem;
+        font-weight: 800;
+    }
+
+    .interact-btn:active,
+    .interact-btn.pressed {
+        background: rgba(232, 90, 107, 0.55);
+        border-color: rgba(232, 90, 107, 0.8);
+    }
+
+    /* Sprint button - gold accent */
+    .sprint-btn {
+        background: rgba(200, 160, 60, 0.3);
+        border-color: rgba(232, 200, 96, 0.45);
+    }
+
+    .sprint-btn:active,
+    .sprint-btn.pressed {
+        background: rgba(232, 200, 96, 0.45);
+        border-color: rgba(232, 200, 96, 0.75);
+    }
+
+    /* Jump button */
+    .jump-btn {
+        width: 48px;
+        height: 48px;
+        font-size: 1rem;
+    }
+}

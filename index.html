@@ -154,9 +154,24 @@
         <!-- Fade transition overlay -->
         <div id="fadeOverlay" class="fade-overlay hidden"></div>
 
-        <!-- Controls hint -->
+        <!-- Controls hint (desktop) -->
         <div class="controls-hint">
             <span>← → walk · Shift sprint · Space jump · E interact</span>
+        </div>
+
+        <!-- Mobile touch controls -->
+        <div id="mobileControls" class="mobile-controls">
+            <div class="mobile-dpad">
+                <button id="btnLeft" class="mobile-btn dpad-btn">◀</button>
+                <button id="btnRight" class="mobile-btn dpad-btn">▶</button>
+            </div>
+            <div class="mobile-actions">
+                <button id="btnJump" class="mobile-btn action-btn jump-btn">⬆</button>
+                <div class="action-row">
+                    <button id="btnInteract" class="mobile-btn action-btn interact-btn">E</button>
+                    <button id="btnSprint" class="mobile-btn action-btn sprint-btn">⚡</button>
+                </div>
+            </div>
         </div>
 
         <!-- Title overlay -->
