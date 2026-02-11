@@ -445,6 +445,75 @@ body {
     box-shadow: 0 5px 15px rgba(232, 90, 107, 0.4);
 }
 
+/* Accept invitation prompt */
+.accept-invitation {
+    animation: fadeInDown 0.6s ease;
+    text-align: center;
+    margin-top: 0.5rem;
+}
+
+.accept-invitation.hidden {
+    display: none;
+}
+
+.accept-question {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #c94050;
+    margin-bottom: 0.8rem;
+}
+
+.accept-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.accept-btn {
+    background: linear-gradient(135deg, #e85a6b, #c94050);
+    color: white;
+    border: none;
+    padding: 0.6rem 1.8rem;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    box-shadow: 0 3px 12px rgba(232, 90, 107, 0.3);
+    animation: gentlePulse 1.5s ease-in-out infinite;
+}
+
+.accept-btn:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 6px 20px rgba(232, 90, 107, 0.5);
+    background: linear-gradient(135deg, #f06a7b, #d94060);
+}
+
+.accept-btn:active {
+    transform: translateY(0) scale(0.98);
+}
+
+/* Accepted celebration message */
+.accepted-message {
+    animation: fadeInDown 0.5s ease;
+    text-align: center;
+    margin-top: 0.3rem;
+}
+
+.accepted-message.hidden {
+    display: none;
+}
+
+.accepted-text {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #c94050;
+    animation: heartbeat 1s ease-in-out 2;
+}
+
 /* Prize details panel */
 .prize-details {
     animation: fadeIn 0.4s ease;

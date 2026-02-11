@@ -386,6 +386,12 @@ export class UI {
         const prizeDetails = document.getElementById('prizeDetails');
         if (prizeDetails) prizeDetails.classList.add('hidden');
 
+        // Reset accept invitation state
+        const acceptInvitation = document.getElementById('acceptInvitation');
+        if (acceptInvitation) acceptInvitation.classList.add('hidden');
+        const acceptedMessage = document.getElementById('acceptedMessage');
+        if (acceptedMessage) acceptedMessage.classList.add('hidden');
+
         const container = document.getElementById('scratchCardContainer');
         const rect = container.getBoundingClientRect();
 
@@ -510,15 +516,35 @@ export class UI {
         if (scratchHint) scratchHint.style.display = 'none';
         if (scratchRevealed) scratchRevealed.classList.remove('hidden');
 
-        // Wire up View Details button
-        const viewDetailsBtn = document.getElementById('viewDetailsBtn');
+        // Show accept invitation prompt after a short delay
+        const acceptInvitation = document.getElementById('acceptInvitation');
+        setTimeout(() => {
+            if (acceptInvitation) acceptInvitation.classList.remove('hidden');
+        }, 1200);
+
+        // Wire up both Yes buttons
+        const acceptYes1 = document.getElementById('acceptYes1');
+        const acceptYes2 = document.getElementById('acceptYes2');
+        const acceptHandler = () => this._onAcceptInvitation();
+        if (acceptYes1) acceptYes1.onclick = acceptHandler;
+        if (acceptYes2) acceptYes2.onclick = acceptHandler;
+    }
+
+    _onAcceptInvitation() {
+        const acceptInvitation = document.getElementById('acceptInvitation');
+        const acceptedMessage = document.getElementById('acceptedMessage');
         const prizeDetails = document.getElementById('prizeDetails');
-        if (viewDetailsBtn && prizeDetails) {
-            viewDetailsBtn.onclick = () => {
-                prizeDetails.classList.toggle('hidden');
-                viewDetailsBtn.textContent = prizeDetails.classList.contains('hidden') ? '📋 View Details' : '📋 Hide Details';
-            };
-        }
+
+        // Hide the accept prompt
+        if (acceptInvitation) acceptInvitation.classList.add('hidden');
+
+        // Show accepted message
+        if (acceptedMessage) acceptedMessage.classList.remove('hidden');
+
+        // Show details after a moment
+        setTimeout(() => {
+            if (prizeDetails) prizeDetails.classList.remove('hidden');
+        }, 800);
     }
 
     cleanupScratchCard() {
