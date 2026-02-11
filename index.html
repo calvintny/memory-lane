@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Lane</title>
+    <link rel="stylesheet" href="styles.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600&family=Crimson+Text:ital@0;1&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="game-container">
+        <canvas id="gameCanvas"></canvas>
+
+        <!-- Welcome modal -->
+        <div id="welcomeModal" class="welcome-modal hidden">
+            <div class="welcome-modal-inner">
+                <h2>Welcome to Our Memory Lane</h2>
+                <div class="welcome-divider"></div>
+                <p>A museum for what we have been through this past year.</p>
+                <p>Walk through the gallery and discover stories captured in each frame. Every picture holds a moment
+                    worth remembering.</p>
+                <div class="welcome-tips">
+                    <span>← → to walk</span>
+                    <span>E to interact</span>
+                </div>
+                <span class="close-hint">press E or Escape to continue</span>
+            </div>
+        </div>
+
+        <!-- Picture modal - side by side layout -->
+        <div id="pictureModal" class="picture-modal hidden">
+            <div class="picture-modal-inner">
+                <div class="picture-side">
+                    <div id="modalPicture" class="modal-picture"></div>
+                    <button id="playVideoBtn" class="play-video-btn hidden">▶ Play Video</button>
+                </div>
+                <div class="description-side">
+                    <h2 id="pictureTitle"></h2>
+                    <p id="pictureDescription"></p>
+                    <span class="close-hint">press E or Escape to close</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Video player modal - fullscreen -->
+        <div id="videoModal" class="video-modal hidden">
+            <div class="video-modal-inner">
+                <video id="videoPlayer" controls></video>
+                <button id="closeVideoBtn" class="close-video-btn">✕ Close</button>
+            </div>
+        </div>
+
+        <!-- Redemption booth modal with scratch card -->
+        <div id="valentineModal" class="valentine-modal hidden">
+            <div class="valentine-modal-inner">
+                <div class="heart-decoration">🎟️</div>
+                <h2>Lucky Card Redemption</h2>
+                <p class="valentine-subtitle">Scratch to reveal your prize!</p>
+
+                <!-- Scratch card area -->
+                <div id="scratchCardContainer" class="scratch-card-container">
+                    <div id="scratchPrize" class="scratch-prize">
+                        <div class="prize-stars">✨ ✨ ✨</div>
+                        <h3 class="prize-title">🎉 Congratulations! 🎉</h3>
+                        <p class="prize-text">You've won a</p>
+                        <p class="prize-main">Complimentary<br>Valentine's Dinner</p>
+                        <p class="prize-sub">❤ For Two ❤</p>
+                        <div class="prize-stars">✨ ✨ ✨</div>
+                    </div>
+                    <canvas id="scratchCanvas" class="scratch-canvas"></canvas>
+                </div>
+
+                <p id="scratchHint" class="scratch-hint">Use your mouse to scratch the card ☝️</p>
+                <div id="scratchRevealed" class="scratch-revealed hidden">
+                    <p>🎊 Happy Valentine's Day! 🎊</p>
+                    <button id="viewDetailsBtn" class="view-details-btn">📋 View Details</button>
+                </div>
+
+                <div id="prizeDetails" class="prize-details hidden">
+                    <div class="detail-item">
+                        <span class="detail-icon">📍</span>
+                        <div>
+                            <span class="detail-label">Venue</span>
+                            <span class="detail-value">The Memory Lane Hall</span>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-icon">🕖</span>
+                        <div>
+                            <span class="detail-label">Date & Time</span>
+                            <span class="detail-value">February 14th, 2026 · 7:00 PM</span>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-icon">👗</span>
+                        <div>
+                            <span class="detail-label">Attire</span>
+                            <span class="detail-value">Elegant & Romantic</span>
+                        </div>
+                    </div>
+                </div>
+
+                <span class="close-hint">press Escape to close</span>
+            </div>
+        </div>
+
+        <!-- Prompts -->
+        <div id="interactPrompt" class="interact-prompt hidden">
+            <span>✦ Press E to view ✦</span>
+        </div>
+
+        <div id="welcomePrompt" class="interact-prompt welcome-prompt-style hidden">
+            <span>✦ Press E for info ✦</span>
+        </div>
+
+        <div id="valentinePrompt" class="interact-prompt valentine-prompt hidden">
+            <span>🎟️ Press E to redeem 🎟️</span>
+        </div>
+
+        <div id="doorPrompt" class="interact-prompt door-prompt hidden">
+            <span>⛓ Press E ⛓</span>
+        </div>
+
+        <div id="exitPrompt" class="interact-prompt exit-prompt hidden">
+            <span>↑ Press E to exit ↑</span>
+        </div>
+
+        <div id="ticketPrompt" class="interact-prompt ticket-prompt hidden">
+            <span>🎟️ Press E to buy ticket 🎟️</span>
+        </div>
+
+        <div id="entrancePrompt" class="interact-prompt entrance-prompt hidden">
+            <span>🚪 Press E to enter museum 🚪</span>
+        </div>
+
+        <div id="chainFeedback" class="chain-feedback hidden">
+            <span id="chainFeedbackText"></span>
+        </div>
+
+        <!-- Fade transition overlay -->
+        <div id="fadeOverlay" class="fade-overlay hidden"></div>
+
+        <!-- Controls hint -->
+        <div class="controls-hint">
+            <span>← → walk · Shift sprint · Space jump · E interact</span>
+        </div>
+
+        <!-- Title overlay -->
+        <div id="titleOverlay" class="title-overlay">
+            <h1>Memory Lane</h1>
+            <p>A quiet walk through moments past</p>
+            <span class="start-hint">press any key to begin</span>
+        </div>
+    </div>
+
+    <script type="module" src="js/game.js"></script>
+</body>
+
+</html>
