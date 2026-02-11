@@ -164,6 +164,14 @@ class Game {
             }
         });
 
+        // Title overlay tap to start (for mobile - overlay blocks canvas clicks)
+        this.ui.titleOverlay.addEventListener('click', () => {
+            if (!this.gameStarted && this.ui.isTitleVisible()) {
+                this.gameStarted = true;
+                this.ui.hideTitle();
+            }
+        });
+
         // Setup mobile touch controls
         this.setupTouchInput();
     }
